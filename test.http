@@ -1,0 +1,15 @@
+###Get User Data
+GET http://localhost:4004/odata/v4/user-parameters-srv/UserInfoHeaders?$count=true
+Content-Type: application/json
+
+###Get single User Data
+GET http://localhost:4004/odata/v4/user-parameters-srv/UserInfoHeaders('9562795f-fd80-4111-9d62-1666850ffbca')
+Content-Type: application/json
+
+###Expand
+GET http://localhost:4004/service/remote/UserInfoHeaders?$expand=parameters
+Content-Type: application/json
+
+###User Parameters 
+GET http://localhost:4004/odata/v4/user-parameters-srv/UserParameters?$filter=Userid eq 'akshay.singla@bsci.com' and parameterId eq 'PLANT'
+Content-Type: application/json

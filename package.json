@@ -1,0 +1,63 @@
+{
+    "name": "AdminApps",
+    "version": "1.0.0",
+    "description": "A simple CAP project.",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap-cloud-sdk/core": "^1.54.2",
+        "@sap-cloud-sdk/http-client": "^3.12.1",
+        "@sap-cloud-sdk/openapi-generator": "^3.12.1",
+        "@sap-cloud-sdk/util": "^3.12.1",
+        "@sap/cds": "^7",
+        "@sap/cds-hana": "^2",
+        "@sap/hana-client": "^2.20.15",
+        "@sap/hdi-deploy": "^4",
+        "@sap/xssec": "^3",
+        "express": "^4",
+        "passport": "^0"
+    },
+    "devDependencies": {
+        "@cap-js/sqlite": "^1",
+        "@sap-cloud-sdk/openapi": "^3.12.1",
+        "@sap/cds-dk": "^7",
+        "@sap/ux-specification": "^1.120.8",
+        "rimraf": "^3.0.2"
+    },
+    "scripts": {
+        "start": "cds-serve",
+        "watch-userparam": "cds watch --open userparam/webapp/index.html?sap-ui-xx-viewCache=false",
+        "undeploy": "cf undeploy AdminApps --delete-services --delete-service-keys --delete-service-brokers",
+        "build": "rimraf resources mta_archives && mbt build --mtar archive",
+        "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+        "watch-userparamfs": "cds watch --open userparamfs/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-userparm": "cds watch --open userparm/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-userparameters": "cds watch --open userparameters/webapp/index.html?sap-ui-xx-viewCache=false"
+    },
+    "cds": {
+        "requires": {
+            "UserManagementSCIM": {
+                "kind": "rest",
+                "credentials": {
+                    "headers": {
+                        "APIKey": "d7ZpGHzvGVApY0xR1suAyDEVVvFVpKkf"
+                    },
+                    "destination": "UserManagementSCIM",
+                    "url": "https://api.authentication.us10.hana.ondemand.com",
+                    "requestTimeout": 30000
+                }
+            },
+            "db": "hana"
+        },
+        "hana": {
+            "deploy-format": "hdbtable"
+        }
+    },
+    "sapux": [
+        "app/userparam",
+        "app/userparm",
+        "app/userparameters",
+        "app/userparameters"
+    ]
+}
