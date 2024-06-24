@@ -41,7 +41,7 @@
                 "kind": "rest",
                 "credentials": {
                     "headers": {
-                        "APIKey": "d7ZpGHzvGVApY0xR1suAyDEVVvFVpKkf"
+                        "APIKey": "*****"
                     },
                     "destination": "UserManagementSCIM",
                     "url": "https://api.authentication.us10.hana.ondemand.com",
