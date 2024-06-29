@@ -1,0 +1,192 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "zmpool.managecustomers",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.14.0",
+      "toolsId": "cfef095e-537c-4c61-9e19-02144e2bc389"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/v4/northwind/northwind.svc/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "northwind-displaycust": {
+          "semanticObject": "northwind",
+          "action": "displaycust",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.125.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "zmpool.managecustomers.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "CustomersList",
+          "target": "CustomersList"
+        },
+        {
+          "pattern": "Customers({key}):?query:",
+          "name": "CustomersObjectPage",
+          "target": "CustomersObjectPage"
+        },
+        {
+          "pattern": "Customers({key})/Orders({key2}):?query:",
+          "name": "OrdersObjectPage",
+          "target": "OrdersObjectPage"
+        }
+      ],
+      "targets": {
+        "CustomersList": {
+          "type": "Component",
+          "id": "CustomersList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Customers",
+              "variantManagement": "Page",
+              "navigation": {
+                "Customers": {
+                  "detail": {
+                    "route": "CustomersObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CustomersObjectPage": {
+          "type": "Component",
+          "id": "CustomersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Customers",
+              "navigation": {
+                "Orders": {
+                  "detail": {
+                    "route": "OrdersObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "OrdersObjectPage": {
+          "type": "Component",
+          "id": "OrdersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Customers/Orders"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "zmpoolmanagecustomers"
+  }
+}
